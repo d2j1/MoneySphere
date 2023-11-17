@@ -1,4 +1,4 @@
-package com.app.ms.orders.entity;
+package com.app.ms.db2.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

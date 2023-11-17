@@ -1,4 +1,4 @@
-package com.app.ms.security.entity;
+package com.app.ms.db1.entities;
 
 import java.util.Set;
 

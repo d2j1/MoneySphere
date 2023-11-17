@@ -1,4 +1,4 @@
-package com.app.ms.security.entity;
+package com.app.ms.db1.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
