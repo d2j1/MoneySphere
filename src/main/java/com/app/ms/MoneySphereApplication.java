@@ -7,9 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
-@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class,
-		HibernateJpaAutoConfiguration.class,
-		DataSourceTransactionManagerAutoConfiguration.class} )
+@SpringBootApplication
 public class MoneySphereApplication {
 
 	public static void main(String[] args) {
