@@ -18,6 +18,8 @@ import com.app.ms.payloads.ApiResponse;
 import com.app.ms.payloads.UserDto;
 import com.app.ms.service.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -30,7 +32,7 @@ public class UserController {
 	
 	// post create user
 	@PostMapping("/")
-	public ResponseEntity<UserDto> createUser(@RequestBody  UserDto user) {
+	public ResponseEntity<UserDto> createUser(@Valid @RequestBody  UserDto user) {
 		
 		UserDto createdUser= this.userService.createUser(user);
 		
@@ -39,7 +41,7 @@ public class UserController {
 	}
 //	put - update user
 	@PutMapping("/{userId}")
-	public ResponseEntity<UserDto> updateUser(@RequestBody  UserDto user, @PathVariable Integer userId) {
+	public ResponseEntity<UserDto> updateUser(@Valid @RequestBody  UserDto user, @PathVariable Integer userId) {
 		
 		UserDto updatedUser= this.userService.updateUser(user, userId);
 		
