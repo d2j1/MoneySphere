@@ -1,5 +1,7 @@
 package com.app.ms.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +50,7 @@ public class UserController {
 //	delete - delete user
 	
 	@DeleteMapping("/{userId}")
-	public ResponseEntity<?> deleteUser(@PathVariable Integer userId) {
+	public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer userId) {
 		
 		this.userService.deleteUser(userId);
 		
@@ -60,9 +62,19 @@ public class UserController {
 	@GetMapping("/")
 	public ResponseEntity<?> getUsers() {
 		
-		this.userService.getAllUsers();
+		List<UserDto> users = this.userService.getAllUsers();
 		
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(users);
+		
+	}
+	
+	// get user by id
+	@GetMapping("/{userId}")
+	public ResponseEntity<UserDto> getUsers(@PathVariable Integer userId) {
+		
+		UserDto user = this.userService.getUserById(userId);
+		
+		return ResponseEntity.ok().body(user);
 		
 	}
 	
