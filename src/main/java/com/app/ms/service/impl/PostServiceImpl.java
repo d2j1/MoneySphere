@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.app.ms.entities.Category;
@@ -75,10 +77,16 @@ public class PostServiceImpl implements PostService {
 		this.postRepo.delete(post);
 	}
 
+	
+	// implementing pagination 
 	@Override
-	public List<PostDto> getAllPost() {
-
-		List<Post> posts = this.postRepo.findAll();
+	public List<PostDto> getAllPost(Integer pageNo, Integer pageSize) {
+		
+		Pageable pageable = PageRequest.of(pageNo, pageSize); // by default page no starts from 0
+		
+		Page<Post> pagePosts = this.postRepo.findAll(pageable);
+		
+		List<Post> posts = pagePosts.getContent();
 		
 		List<PostDto> postDtos = posts.stream().map( post ->  this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
 		
