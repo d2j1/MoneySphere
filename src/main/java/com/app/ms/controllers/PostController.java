@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.ms.payloads.ApiResponse;
 import com.app.ms.payloads.PostDto;
+import com.app.ms.payloads.PostResponse;
 import com.app.ms.service.PostService;
 
 
@@ -50,7 +51,6 @@ public class PostController {
 	}
 	
 	// get by category 
-	
 	@GetMapping("/category/{categoryId}/posts")
 	public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable Integer categoryId){
 	
@@ -59,17 +59,19 @@ public class PostController {
 		return new ResponseEntity<List<PostDto>>(postDtos, HttpStatus.ACCEPTED);	
 	}
 	
-	// get all posts 
 	
+	// get all posts 
 	@GetMapping("/allPosts")
-	public ResponseEntity<List<PostDto>> getAllPosts(
+	public ResponseEntity<PostResponse> getAllPosts(
 			@RequestParam(value="pageNumber", defaultValue="0", required=false) Integer pageNo,
-			@RequestParam(value="pageSize", defaultValue="1", required=false) Integer pageSize ){
+			@RequestParam(value="pageSize", defaultValue="1", required=false) Integer pageSize,
+			@RequestParam( value="sortBy", defaultValue="postId", required= false) String sortBy, 
+			@RequestParam( value = "sortDir", defaultValue="ASC", required=false) String sortDir){
 		
 			
-		List<PostDto> postDtos = this.postService.getAllPost(pageNo, pageSize);
+		PostResponse postRes = this.postService.getAllPost(pageNo, pageSize, sortBy, sortDir);
 		
-		return new ResponseEntity<List<PostDto>>(postDtos, HttpStatus.ACCEPTED);
+		return new ResponseEntity<PostResponse>(postRes, HttpStatus.ACCEPTED);
 	}
 	
 	// get post by id
