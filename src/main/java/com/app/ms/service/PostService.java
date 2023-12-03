@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.app.ms.entities.Post;
 import com.app.ms.payloads.PostDto;
+import com.app.ms.payloads.PostResponse;
 
 public interface PostService {
 
@@ -21,7 +22,7 @@ public interface PostService {
 	
 	// get all post
 	
-	List<PostDto> getAllPost(Integer pageNo, Integer pageSize);
+	PostResponse getAllPost(Integer pageNo, Integer pageSize, String sortBy, String sortDir);
 	
 	// get by one post by id
 	PostDto getPostById(Integer postId);

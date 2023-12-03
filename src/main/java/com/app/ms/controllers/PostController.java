@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.ms.config.AppConstants;
 import com.app.ms.payloads.ApiResponse;
 import com.app.ms.payloads.PostDto;
+import com.app.ms.payloads.PostResponse;
 import com.app.ms.service.PostService;
 
 
@@ -50,7 +52,6 @@ public class PostController {
 	}
 	
 	// get by category 
-	
 	@GetMapping("/category/{categoryId}/posts")
 	public ResponseEntity<List<PostDto>> getPostsByCategory(@PathVariable Integer categoryId){
 	
@@ -59,17 +60,19 @@ public class PostController {
 		return new ResponseEntity<List<PostDto>>(postDtos, HttpStatus.ACCEPTED);	
 	}
 	
-	// get all posts 
 	
+	// get all posts 
 	@GetMapping("/allPosts")
-	public ResponseEntity<List<PostDto>> getAllPosts(
-			@RequestParam(value="pageNumber", defaultValue="0", required=false) Integer pageNo,
-			@RequestParam(value="pageSize", defaultValue="1", required=false) Integer pageSize ){
+	public ResponseEntity<PostResponse> getAllPosts(
+			@RequestParam(value="pageNumber", defaultValue=AppConstants.PAGE_NUMBER, required=false) Integer pageNo,
+			@RequestParam(value="pageSize", defaultValue=AppConstants.PAGE_SIZE, required=false) Integer pageSize,
+			@RequestParam( value="sortBy", defaultValue=AppConstants.SORT_BY, required= false) String sortBy, 
+			@RequestParam( value = "sortDir", defaultValue=AppConstants.SORT_DIR, required=false) String sortDir){
 		
 			
-		List<PostDto> postDtos = this.postService.getAllPost(pageNo, pageSize);
+		PostResponse postRes = this.postService.getAllPost(pageNo, pageSize, sortBy, sortDir);
 		
-		return new ResponseEntity<List<PostDto>>(postDtos, HttpStatus.ACCEPTED);
+		return new ResponseEntity<PostResponse>(postRes, HttpStatus.ACCEPTED);
 	}
 	
 	// get post by id
@@ -100,6 +103,15 @@ public class PostController {
 		
 		
 		return new ResponseEntity<PostDto>(postDto, HttpStatus.ACCEPTED);
+	}
+	
+	// searching 
+	@GetMapping("/posts/search/{keywrods}")
+	public ResponseEntity<List<PostDto>> searchPostByTitle( @PathVariable(value="keywrods") String keywords){
+			
+		List<PostDto> result = this.postService.searchPosts(keywords);
+		
+		return new ResponseEntity<List<PostDto>>(result, HttpStatus.ACCEPTED);
 	}
 	
 }
