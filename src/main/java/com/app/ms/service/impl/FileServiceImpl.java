@@ -9,10 +9,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.ms.service.FileService;
 
+@Service
 public class FileServiceImpl implements FileService {
 
 	@Override
@@ -41,7 +43,7 @@ public class FileServiceImpl implements FileService {
 
 		Files.copy(file.getInputStream(), Paths.get(filePath));
 
-		return name;
+		return fileName1;
 
 	}
 
