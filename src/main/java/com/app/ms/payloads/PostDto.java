@@ -1,10 +1,8 @@
 package com.app.ms.payloads;
 
 import java.util.Date;
-
-import com.app.ms.entities.Category;
-import com.app.ms.entities.User;
-
+import java.util.Set;
+import com.app.ms.entities.Comment;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +25,8 @@ public class PostDto {
 	private UserDto user;
 	
 	private CategoryDto category;
+	
+	private Set<Comment> comments;
 	
 	
 }
